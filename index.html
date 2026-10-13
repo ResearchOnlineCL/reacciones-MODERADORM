@@ -92,8 +92,9 @@
     const tg = window.Telegram.WebApp;
     tg.expand();
     
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwiQ_lt8claLRc03pEfLA4guMHCW3-UaYxaGM2XyNABJ9oaPuxJepuwCBKYn8IzbaVAKQ/exec
-";
+    // URL limpia en una sola línea
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwiQ_lt8claLRc03pEfLA4guMHCW3-UaYxaGM2XyNABJ9oaPuxJepuwCBKYn8IzbaVAKQ/exec";
+    
     const video = document.getElementById('myVideo');
     
     let user = localStorage.getItem('userName') || "Anónimo";
@@ -126,23 +127,19 @@
     function resetUser(event) {
       if (event) event.preventDefault();
       
-      // Limpiar memoria y variables
       localStorage.removeItem('userName');
       localStorage.removeItem('videoProgress');
       maxTimeWatched = 0;
       started = false;
       
-      // Pausar y reiniciar el video
       video.pause();
       video.currentTime = 0;
       
-      // Limpiar campos de entrada y errores previos
       document.getElementById('firstNameInput').value = "";
       document.getElementById('lastNameInput').value = "";
       document.getElementById('firstNameInput').classList.remove('error');
       document.getElementById('lastNameInput').classList.remove('error');
       
-      // Actualizar estructura del modal y volver a mostrarlo en pantalla
       checkExistingUser();
       document.getElementById('nameModal').style.display = 'flex';
     }
@@ -174,7 +171,7 @@
         }
         
         if (!valid) {
-          return; // Detiene la ejecución limpiamente sin congelar
+          return;
         }
         
         user = firstName + " " + lastName;
@@ -203,14 +200,12 @@
       }
     };
 
-    // Bloqueo de Pausa
     video.addEventListener('pause', () => {
       if (!video.ended && started) {
         video.play();
       }
     });
 
-    // Control de tiempo y guardado automático
     video.addEventListener('timeupdate', () => {
       if (!started) return;
       
